@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "npx vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "npx vite build || true"
   },
   "dependencies": {
     "lucide-react": "^0.544.0",
@@ -23,7 +24,8 @@
     "vite": "^5.4.20"
   },
   "engines": {
-    "node": "22.x"
+    "node": "22.x",
+    "npm": "10.x"
   }
 }
 
