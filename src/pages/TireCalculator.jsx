@@ -12,6 +12,16 @@ export default function TireCalculator() {
   const loaderRef = useRef(null);
   const resultsRef = useRef(null);
 
+  // 👉 определяем мобильное устройство
+  const [isMobileView, setIsMobileView] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const handleResize = (e) => setIsMobileView(e.matches);
+    handleResize(mq);
+    mq.addEventListener("change", handleResize);
+    return () => mq.removeEventListener("change", handleResize);
+  }, []);
+
   // поля
   const [oldTire, setOldTire] = useState("");
   const [newTire, setNewTire] = useState("");
@@ -304,7 +314,7 @@ export default function TireCalculator() {
         className={`${
           visible ? "opacity-100 scale-100" : "opacity-0 scale-95"
         } transform transition-all duration-700 ease-out
-        w-full max-w-3xl p-6 rounded-2xl shadow-lg relative border text-center`}
+        ${isMobileView ? "max-w-[380px]" : "max-w-3xl"} w-full p-6 rounded-2xl shadow-lg relative border text-center`}
         style={
           theme === "light"
             ? { backgroundColor: "#dce7f5", color: "#028cff" }
@@ -381,66 +391,68 @@ export default function TireCalculator() {
             style={{ color: "#028cff", maxWidth: "100%" }}
           >
             <h2 className="text-lg sm:text-xl font-bold mb-3">Сравнение шин и дисков</h2>
-            <table className="border-collapse border border-gray-300 text-center w-full text-sm mb-4">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border px-2 py-1">Параметр</th>
-                  <th className="border px-2 py-1">Старая</th>
-                  <th className="border px-2 py-1">Новая</th>
-                  <th className="border px-2 py-1">Разница</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="border px-2 py-1">Диаметр, мм</td>
-                  <td className="border px-2 py-1">{results.oldParams.diameter.toFixed(1)}</td>
-                  <td className="border px-2 py-1">{results.newParams.diameter.toFixed(1)}</td>
-                  <td className={`border px-2 py-1 ${getDiffClass(results.percent)}`}>
-                    {results.diff.toFixed(1)} мм ({results.percent.toFixed(2)}%)
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border px-2 py-1">Окружность, мм</td>
-                  <td className="border px-2 py-1">{results.oldParams.circumference.toFixed(1)}</td>
-                  <td className="border px-2 py-1">{results.newParams.circumference.toFixed(1)}</td>
-                  <td className={`border px-2 py-1 ${getDiffClass(results.speedoError)}`}>
-                    {(results.newParams.circumference - results.oldParams.circumference).toFixed(1)} мм
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border px-2 py-1">Клиренс, мм</td>
-                  <td className="border px-2 py-1">{results.oldParams.clearance.toFixed(1)}</td>
-                  <td className="border px-2 py-1">{results.newParams.clearance.toFixed(1)}</td>
-                  <td className={`border px-2 py-1 ${getDiffClass(results.clearanceDiff)}`}>
-                    {results.clearanceDiff.toFixed(1)} мм
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border px-2 py-1">Спидометр (100 км/ч)</td>
-                  <td className="border px-2 py-1">100 км/ч</td>
-                  <td className="border px-2 py-1">{(100 + results.speedoError).toFixed(1)} км/ч</td>
-                  <td className={`border px-2 py-1 ${getDiffClass(results.speedoError)}`}>
-                    {results.speedoError.toFixed(2)}%
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border px-2 py-1">Смещение внутреннего края</td>
-                  <td className="border px-2 py-1">{results.innerOld.toFixed(1)}</td>
-                  <td className="border px-2 py-1">{results.innerNew.toFixed(1)}</td>
-                  <td className={`border px-2 py-1 ${getDiffClass(results.innerDiff)}`}>
-                    {results.innerDiff.toFixed(1)} мм
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border px-2 py-1">Смещение внешнего края</td>
-                  <td className="border px-2 py-1">{results.outerOld.toFixed(1)}</td>
-                  <td className="border px-2 py-1">{results.outerNew.toFixed(1)}</td>
-                  <td className={`border px-2 py-1 ${getDiffClass(results.outerDiff)}`}>
-                    {results.outerDiff.toFixed(1)} мм
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div className={`flex justify-center mt-4 ${isMobileView ? "scale-75" : ""}`}>
+              <table className={`border-collapse border border-gray-300 text-center w-full ${isMobileView ? "text-[10px]" : "text-sm"} mb-4`}>
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="border px-2 py-1">Параметр</th>
+                    <th className="border px-2 py-1">Старая</th>
+                    <th className="border px-2 py-1">Новая</th>
+                    <th className="border px-2 py-1">Разница</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border px-2 py-1">Диаметр, мм</td>
+                    <td className="border px-2 py-1">{results.oldParams.diameter.toFixed(1)}</td>
+                    <td className="border px-2 py-1">{results.newParams.diameter.toFixed(1)}</td>
+                    <td className={`border px-2 py-1 ${getDiffClass(results.percent)}`}>
+                      {results.diff.toFixed(1)} мм ({results.percent.toFixed(2)}%)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border px-2 py-1">Окружность, мм</td>
+                    <td className="border px-2 py-1">{results.oldParams.circumference.toFixed(1)}</td>
+                    <td className="border px-2 py-1">{results.newParams.circumference.toFixed(1)}</td>
+                    <td className={`border px-2 py-1 ${getDiffClass(results.speedoError)}`}>
+                      {(results.newParams.circumference - results.oldParams.circumference).toFixed(1)} мм
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border px-2 py-1">Клиренс, мм</td>
+                    <td className="border px-2 py-1">{results.oldParams.clearance.toFixed(1)}</td>
+                    <td className="border px-2 py-1">{results.newParams.clearance.toFixed(1)}</td>
+                    <td className={`border px-2 py-1 ${getDiffClass(results.clearanceDiff)}`}>
+                      {results.clearanceDiff.toFixed(1)} мм
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border px-2 py-1">Спидометр (100 км/ч)</td>
+                    <td className="border px-2 py-1">100 км/ч</td>
+                    <td className="border px-2 py-1">{(100 + results.speedoError).toFixed(1)} км/ч</td>
+                    <td className={`border px-2 py-1 ${getDiffClass(results.speedoError)}`}>
+                      {results.speedoError.toFixed(2)}%
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border px-2 py-1">Смещение внутреннего края</td>
+                    <td className="border px-2 py-1">{results.innerOld.toFixed(1)}</td>
+                    <td className="border px-2 py-1">{results.innerNew.toFixed(1)}</td>
+                    <td className={`border px-2 py-1 ${getDiffClass(results.innerDiff)}`}>
+                      {results.innerDiff.toFixed(1)} мм
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border px-2 py-1">Смещение внешнего края</td>
+                    <td className="border px-2 py-1">{results.outerOld.toFixed(1)}</td>
+                    <td className="border px-2 py-1">{results.outerNew.toFixed(1)}</td>
+                    <td className={`border px-2 py-1 ${getDiffClass(results.outerDiff)}`}>
+                      {results.outerDiff.toFixed(1)} мм
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
             {/* Подробное описание */}
             {describeResults(results)}
