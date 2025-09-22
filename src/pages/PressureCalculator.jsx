@@ -56,15 +56,22 @@ export default function TirePressureCalculator() {
     return () => clearTimeout(t);
   }, [toast]);
 
+  // 👇 фиксированный скролл по центру
   useEffect(() => {
     if (showSpinner && loaderRef.current) {
-      setTimeout(() => loaderRef.current.scrollIntoView({ behavior: "smooth" }), 200);
+      setTimeout(() => loaderRef.current.scrollIntoView({ 
+        behavior: "smooth",
+        block: "center"
+      }), 200);
     }
   }, [showSpinner]);
 
   useEffect(() => {
     if (results && resultsRef.current) {
-      setTimeout(() => resultsRef.current.scrollIntoView({ behavior: "smooth" }), 500);
+      setTimeout(() => resultsRef.current.scrollIntoView({ 
+        behavior: "smooth",
+        block: "center"
+      }), 500);
     }
   }, [results]);
 

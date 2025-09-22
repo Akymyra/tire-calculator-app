@@ -49,18 +49,19 @@ export default function TireCalculator() {
   }, [toast]);
 
   useEffect(() => {
-    if (loading && loaderRef.current) {
-      const t = setTimeout(() => loaderRef.current.scrollIntoView({ behavior: "smooth" }), 400);
-      return () => clearTimeout(t);
-    }
-  }, [loading]);
+  if (loading && loaderRef.current) {
+    loaderRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}, [loading]);
 
-  useEffect(() => {
-    if (results && resultsRef.current) {
-      const t = setTimeout(() => resultsRef.current.scrollIntoView({ behavior: "smooth" }), 400);
-      return () => clearTimeout(t);
-    }
-  }, [results]);
+useEffect(() => {
+  if (results && resultsRef.current) {
+    setTimeout(() => {
+      resultsRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100); // маленькая задержка, чтобы DOM точно обновился
+  }
+}, [results]);
+
 
   // ===== Парсер шин =====
   const parseTire = (input) => {
@@ -274,7 +275,7 @@ export default function TireCalculator() {
           {Math.abs(r.clearanceDiff) <= 10 ? " Допустимо." : " Может привести к зацепам или ударам."}
         </p>
         <p>
-          <b>Спидометр:</b> ошибка {r.speedoError.toFixed(2)}%. Показывает {(100 + r.speedoError).toFixed(1)} км/ч
+          <b>Спидометр:</b> погрешность {r.speedoError.toFixed(2)}%. Показывает {(100 + r.speedoError).toFixed(1)} км/ч
           вместо 100 км/ч.{" "}
           {Math.abs(r.speedoError) <= 3 ? "В пределах допустимого." : " Может исказить восприятие скорости."}
         </p>
