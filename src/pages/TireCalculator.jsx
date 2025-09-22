@@ -77,6 +77,15 @@ export default function TireCalculator() {
     }
   }, [results]);
 
+    useEffect(() => {
+    if (!showSpinner || !loaderRef.current) return;
+    const t = setTimeout(() => {
+      loaderRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 150); // маленькая задержка, чтобы DOM точно обновился
+    return () => clearTimeout(t);
+  }, [showSpinner]);
+
+
   // ===== Парсер шин =====
   const parseTire = (input) => {
     input = input.trim().toUpperCase().replace(",", ".");
