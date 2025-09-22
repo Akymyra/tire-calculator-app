@@ -1,0 +1,22 @@
+# зависимости
+node_modules
+
+# продакшен сборка
+dist
+
+# локальные env-файлы
+.env
+.env.local
+.env.*.local
+
+# кеш Vite
+.vite
+
+# IDE/редакторы
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Windows мусор
+Thumbs.db
