@@ -1,4 +1,4 @@
 ﻿User-agent: *
 Allow: /
 
-Sitemap: https://vshk-alyans-import-calculator.vercel.app/sitemap.xml
+Sitemap: https://tire-calculator-app.vercel.app/sitemap.xml
