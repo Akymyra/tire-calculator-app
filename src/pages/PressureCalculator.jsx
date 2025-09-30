@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO"; // ✅ SEO
 
 export default function TirePressureCalculator() {
   const [tirePressures, setTirePressures] = useState({});
@@ -201,6 +202,13 @@ export default function TirePressureCalculator() {
         color: "#028cff",
       }}
     >
+      {/* ✅ SEO блок */}
+      <SEO
+        title="Калькулятор давления в шинах — подбор по авто"
+        description="Узнайте оптимальное давление в колесах вашего автомобиля. Онлайн калькулятор давления шин подскажет, нужно ли подкачать или снизить давление."
+        keywords="калькулятор давления в шинах, давление в колесах, tire pressure calculator, подбор давления шин"
+      />
+
       {toast.msg && (
         <div
           className={`fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg shadow-lg z-50 ${

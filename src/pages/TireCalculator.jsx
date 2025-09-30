@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO"; // ✅ SEO
 
 export default function TireCalculator() {
   const [theme, setTheme] = useState("dark");
@@ -324,6 +325,13 @@ export default function TireCalculator() {
         color: "#028cff",
       }}
     >
+      {/* ✅ SEO блок */}
+      <SEO
+        title="Калькулятор шин онлайн — расчет и подбор размеров"
+        description="Подберите шины и диски по параметрам. Онлайн калькулятор шин рассчитывает разницу в диаметре, клиренсе, спидометре и совместимости шин и дисков."
+        keywords="калькулятор шин, онлайн калькулятор шин, сравнение шин, расчет размеров шин, tire calculator, tire size calculator"
+      />
+
       {toast.msg && (
         <div
           className={`fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg shadow-lg z-50 ${

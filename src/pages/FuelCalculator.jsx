@@ -1,7 +1,9 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO"; // ✅ подключаем SEO
 
 export default function FuelCalculator() {
   const [distance, setDistance] = useState("");
@@ -235,7 +237,15 @@ export default function FuelCalculator() {
         backgroundRepeat: "no-repeat",
         color: "#028cff",
       }}
+      
     >
+       {/* ✅ SEO блок */}
+      <SEO
+        title="Калькулятор экономии топлива онлайн — расчет расхода"
+        description="Рассчитайте расход топлива и узнайте, сколько сможете сэкономить. Бесплатный онлайн топливный калькулятор для автомобилистов."
+        keywords="калькулятор расхода топлива, калькулятор экономии топлива, fuel calculator, fuel economy calculator"
+      />
+
       {toast.msg && (
         <div
           className={`fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg shadow-lg z-50 ${
@@ -245,7 +255,7 @@ export default function FuelCalculator() {
           {toast.msg}
         </div>
       )}
-
+      
       <div
         className={`${
           visible ? "opacity-100 scale-100" : "opacity-0 scale-95"
