@@ -167,12 +167,12 @@ export default function App() {
                       {/* Контакты */}
                       <div className="mt-12 flex flex-col sm:flex-row justify-center gap-4">
                         <a
-                          href="https://t.me/igra_protektorov"
+                          href="https://moscow.vshk.group/"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition-transform transform hover:scale-105 text-center"
                         >
-                          📢 Telegram: Игра Протекторов
+                          🌐 Сайт ВШК Альянс-Импорт
                         </a>
                         <a
                           href="tel:+79020682525"
